@@ -5,7 +5,7 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    metaLabels:
+    matchLabels:
       app: {{ .Chart.Name }}
   template:
     metadata:
@@ -15,6 +15,6 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 80
