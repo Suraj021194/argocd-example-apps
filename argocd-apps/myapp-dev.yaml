@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/suraj021194/argocd-example-apps
     targetRevision: HEAD
-    path: helm-chart
+    path: argocd-helm-chart
     helm:
       values: | 
         replicaCount: 1
