@@ -159,3 +159,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+job:
+  image:
+    repository: busybox
+    tag: latest
+    pullPolicy: IfNotPresent
+  command: ["echo"]
+  args: ["Hello from Helm Job!"]

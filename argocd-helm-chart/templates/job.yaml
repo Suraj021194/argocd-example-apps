@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "argocd-helm-chart.fullname" . }}-job
+  labels:
+    app: {{ include "argocd-helm-chart.name" . }}
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: {{ include "argocd-helm-chart.name" . }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: {{ .Chart.Name }}-job
+          image: "{{ .Values.job.image.repository }}:{{  .Values.job.image.tag }}"
+          imagePullPolicy: {{ .Values.job.image.pullPolicy }}
+          command: {{ toJson .Values.job.command }}
+          args: {{ toJson .Values.job.args }}

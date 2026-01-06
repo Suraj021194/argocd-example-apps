@@ -9,3 +9,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+job:
+  command: ["echo"]
+  args: ["Running dev job"]
