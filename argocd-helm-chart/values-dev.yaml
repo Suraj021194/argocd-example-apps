@@ -10,5 +10,12 @@ resources:
     cpu: 100m
     memory: 128Mi
 job:
+  enabled: true
+  image:
+    repository: busybox
+    tag: "latest"
+    pullPolicy: IfNotPresent
   command: ["echo"]
   args: ["Running dev job"]
+ingress:
+  host: dev.example.com

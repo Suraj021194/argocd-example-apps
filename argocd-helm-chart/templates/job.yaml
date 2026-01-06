@@ -1,3 +1,5 @@
+{{- if .Values.job.enabled }}
+
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -18,3 +20,4 @@ spec:
           imagePullPolicy: {{ .Values.job.image.pullPolicy }}
           command: {{ toJson .Values.job.command }}
           args: {{ toJson .Values.job.args }}
+  {{- end }}
