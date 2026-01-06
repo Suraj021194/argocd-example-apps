@@ -1,5 +1,3 @@
-{{- if .Values.job.enabled }}
-
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -12,6 +10,9 @@ spec:
     metadata:
       labels:
         app: {{ include "argocd-helm-chart.name" . }}
+      annotations:
+        "argocd.argoproj.io/hook": PreSync
+        "argocd.argoproj.io/hook-delete-policy": HookSucceeded
     spec:
       restartPolicy: Never
       containers:
@@ -20,4 +21,3 @@ spec:
           imagePullPolicy: {{ .Values.job.image.pullPolicy }}
           command: {{ toJson .Values.job.command }}
           args: {{ toJson .Values.job.args }}
-  {{- end }}
