@@ -17,5 +17,6 @@ job:
     pullPolicy: IfNotPresent
   command: ["echo"]
   args: ["Running dev job"]
+env: dev
 ingress:
   host: dev.example.com
