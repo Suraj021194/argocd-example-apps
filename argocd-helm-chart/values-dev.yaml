@@ -37,3 +37,9 @@ rbac:
     - apiGroup: [""]
       resources: ["pods"]
       verbs: ["gets", "list"]
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
