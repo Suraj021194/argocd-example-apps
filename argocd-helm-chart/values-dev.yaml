@@ -1,22 +1,39 @@
-replicas: 1
+replicas: 2
+containerPort: 8080
 image:
   repository: nginx
   tag: latest
+  pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   port: 80
-resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
+ingress:
+  host: dev.example.com
+  path: /
+  pathType: Prefix
+  tlsSecret: dev-tls
+env: dev
+config:
+  customKey: "dynamic-value"
+secret:
+  dbPassword: "supersecret"
 job:
   enabled: true
+  hookType: PreSync
+  deletePolicy: HookSucceeded
+  backoffLimit: 3
   image:
     repository: busybox
     tag: "latest"
     pullPolicy: IfNotPresent
   command: ["echo"]
-  args: ["Running dev job"]
-env: dev
-ingress:
-  host: dev.example.com
+  args: ["Running dynamic job"]
+serviceAccount:
+  name: myapp-sa
+rbac:
+  roleName: myapp-role
+  bindingName: myapp-binding
+  rules:
+    - apiGroup: [""]
+      resources: ["pods"]
+      verbs: ["gets", "list"]
