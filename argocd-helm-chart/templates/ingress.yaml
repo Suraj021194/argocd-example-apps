@@ -11,7 +11,7 @@ spec:
             pathType: {{ .Values.ingress.pathType }}
             backend:
               service:
-                name: {{ include "argocd-helm-chart.fullname" . }}
+                name: {{ include "argocd-helm-chart.name" . }}
                 port:
                   number: {{ .Values.service.port }}
   tls:

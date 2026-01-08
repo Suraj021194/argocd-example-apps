@@ -8,6 +8,7 @@ service:
   type: ClusterIP
   port: 80
 ingress:
+  enabled: true
   host: dev.example.com
   path: /
   pathType: Prefix
@@ -36,10 +37,16 @@ rbac:
   rules:
     - apiGroup: [""]
       resources: ["pods"]
-      verbs: ["gets", "list"]
+      verbs: ["get", "list"]
 livenessProbe:
   httpGet:
     path: /
     port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8080
   initialDelaySeconds: 5
   periodSeconds: 10
