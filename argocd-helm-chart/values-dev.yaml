@@ -1,5 +1,5 @@
 replicas: 2
-containerPort: 8080
+containerPort: 80
 image:
   repository: nginx
   tag: latest
@@ -47,6 +47,6 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /
-    port: 8080
+    port: 80
   initialDelaySeconds: 5
   periodSeconds: 10
