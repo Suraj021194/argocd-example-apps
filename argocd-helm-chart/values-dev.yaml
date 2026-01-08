@@ -35,7 +35,7 @@ rbac:
   roleName: myapp-role
   bindingName: myapp-binding
   rules:
-    - apiGroup: [""]
+    - apiGroups: [""]
       resources: ["pods"]
       verbs: ["get", "list"]
 livenessProbe:
