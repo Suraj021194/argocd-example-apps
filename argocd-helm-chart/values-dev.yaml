@@ -40,13 +40,13 @@ rbac:
       verbs: ["get", "list"]
 livenessProbe:
   httpGet:
-    path: /healthz
+    path: /
     port: 8080
   initialDelaySeconds: 10
   periodSeconds: 10
 readinessProbe:
   httpGet:
-    path: /readyz
+    path: /
     port: 8080
   initialDelaySeconds: 10
   periodSeconds: 10
