@@ -1,0 +1,55 @@
+replicas: 2
+containerPort: 80
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  host: staging.example.com
+  path: /
+  pathType: Prefix
+  tlsSecret: staging-tls
+env: staging
+config:
+  customKey: "Staging-dynamic-value"
+secret:
+  dbPassword: "staging-secret"
+job:
+  enabled: true
+  hookType: PreSync
+  deletePolicy: HookSucceeded
+  backoffLimit: 3
+  image:
+    repository: busybox
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  command: ["echo"]
+  args: ["Running staging job"]
+serviceAccount:
+  name: myapp-sa
+rbac:
+  roleName: myapp-role
+  bindingName: myapp-role
+  rules:
+    - apiGroup: [""]
+      resources: ["pods"]
+      verbs: ["get", "list"]
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 10
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 10
+  periodSeconds: 10
