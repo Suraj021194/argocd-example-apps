@@ -19,6 +19,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.containerPort }}
+          volumeMounts:
+            - name: {{ include "argocd-helm-chart.fullname" .}}-ui
           resources: {{- toYaml .Values.resources | nindent 12  }}
           livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
